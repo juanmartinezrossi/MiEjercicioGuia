@@ -53,21 +53,37 @@ int main(int argc, char *argv[])
 		p = strtok( NULL, "/");
 		char nombre[20];
 		strcpy (nombre, p);
-		printf ("Codigo: %d, Nombre: %s\n", codigo, nombre);
-		
-		if (codigo ==1) //piden la longitd del nombre
-			sprintf (respuesta,"%d",strlen (nombre));
-		else
-			// quieren saber si el nombre es bonito
-			if((nombre[0]=='M') || (nombre[0]=='S'))
-			strcpy (respuesta,"SI");
-			else
-				strcpy (respuesta,"NO");
-			
-			// Enviamos la respuesta
-			write (sock_conn,respuesta, strlen(respuesta));
-			
-			// Se acabo el servicio para este cliente
-			close(sock_conn); 
-	}
+		p = strtok( NULL, "/");
+		float altura =  atof (p);
+		printf ("Codigo: %d, Nombre: %s, Altura: %f\n", codigo, nombre, altura);
+					if (codigo ==1) //piden la longitd del nombre
+						sprintf (respuesta,"%d",strlen (nombre));
+					else 
+						if (codigo == 2)
+						// quieren saber si el nombre es bonito
+						if((nombre[0]=='J') || (nombre[0]=='M'))
+							strcpy (respuesta,"SI");
+						else
+							strcpy (respuesta,"NO");
+						
+						else //decir si es alto
+						{
+							/*char *p = strtok(NULL, "/");
+							float altura =  atof (p);*/
+							if (altura > 1.70)
+							/*	strcpy (respuesta,"SI");
+							else
+								strcpy (respuesta,"NO");*/
+								sprintf(respuesta, "%s: eres alto", nombre);
+							else
+								sprintf(respuesta, "%s: eres bajo", nombre);
+						}
+					
+						// Enviamos la respuesta
+						write (sock_conn,respuesta, strlen(respuesta));
+						
+						// Se acabo el servicio para este cliente
+						close(sock_conn); 
+				}
 }
+
